@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tamagotchi Prototype</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f4f8;
+      padding: 2rem;
+    }
+    .bar-container {
+      width: 200px;
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      margin: 5px auto;
+      position: relative;
+    }
+    .bar {
+      height: 100%;
+      background: #4caf50;
+      border-radius: 10px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐣 Tamagotchi</h1>
+  <div id="pet">😊</div>
+
+  <p>Age: <span id="age">0</span></p>
+  <div>Hunger</div>
+  <div class="bar-container"><div id="hunger-bar" class="bar"></div></div>
+  <div>Happiness</div>
+  <div class="bar-container"><div id="happiness-bar" class="bar"></div></div>
+  <div>Energy</div>
+  <div class="bar-container"><div id="energy-bar" class="bar"></div></div>
+
+  <div>
+    <button onclick="feed()">Feed 🍎</button>
+    <button onclick="play()">Play 🎾</button>
+    <button onclick="sleep()">Sleep 😴</button>
+  </div>
+
+  <p id="status"></p>
+
+  <script>
+    const state = {
+      hunger: 100,
+      happiness: 100,
+      energy: 100,
+      age: 0,
+      alive: true,
+    };
+
+    function updateBars() {
+      document.getElementById('hunger-bar').style.width = state.hunger + '%';
+      document.getElementById('happiness-bar').style.width = state.happiness + '%';
+      document.getElementById('energy-bar').style.width = state.energy + '%';
+      document.getElementById('age').textContent = state.age;
+    }
+
+    function feed() {
+      if (!state.alive) return;
+      state.hunger = Math.min(100, state.hunger + 20);
+      updateBars();
+    }
+
+    function play() {
+      if (!state.alive) return;
+      state.happiness = Math.min(100, state.happiness + 20);
+      state.energy = Math.max(0, state.energy - 10);
+      updateBars();
+    }
+
+    function sleep() {
+      if (!state.alive) return;
+      state.energy = Math.min(100, state.energy + 30);
+      updateBars();
+    }
+
+    function tick() {
+      if (!state.alive) return;
+      state.age += 1;
+      state.hunger = Math.max(0, state.hunger - 5);
+      state.happiness = Math.max(0, state.happiness - 3);
+      state.energy = Math.max(0, state.energy - 2);
+
+      updateBars();
+
+      if (state.hunger === 0 || state.happiness === 0 || state.energy === 0) {
+        state.alive = false;
+        document.getElementById('pet').textContent = '💀';
+        document.getElementById('status').textContent = 'Your pet has passed away...';
+      }
+    }
+
+    setInterval(tick, 3000); // every 3 seconds
+    updateBars();
+  </script>
+</body>
+</html>
