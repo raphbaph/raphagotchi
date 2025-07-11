@@ -1,6 +1,5 @@
 import React from 'react';
 import { PetState } from './PetState';
-import { UserActions } from './UserActions';
 
 type UIProps = {
   petState: PetState;

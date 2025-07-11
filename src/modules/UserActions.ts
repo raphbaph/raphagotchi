@@ -1,7 +1,10 @@
 import { PetState } from './PetState';
 
 export class UserActions {
-  constructor(private petState: PetState) {}
+  private petState: PetState;
+  constructor(petState: PetState) {
+    this.petState = petState;
+  }
 
   feed() {
     this.petState.feed();
