@@ -1,52 +1,69 @@
+# React + TypeScript + Vite
 
-A browser-based Tamagotchi game where players care for a virtual pet. 
-The pet has internal state consisting of
-- Hunger 
-- Love
-- Cleanliness
-- Education
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-The game simulates passage of time and life progression.
+Currently, two official plugins are available:
 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## MODULES OVERVIEW
-Module	Responsibility
-GameEngine	Main loop and time control
-PetState	Holds pet stats and handles state updates
-UserActions	Defines player interactions
-EventSystem	Triggers reactions to pet state changes
-UI	Displays pet, stats, buttons, messages
-Persistence	Saves and loads game state
-AudioVisual	Animations and sounds (optional/polish)
+## Expanding the ESLint configuration
 
-1. GameEngine
-Purpose: Runs the game loop at a fixed interval and triggers periodic state updates.
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-2. PetState
-Purpose: Represents all dynamic attributes of the pet and provides controlled mutations of the state.
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-3. UserActions
-Purpose: Defines how user input modifies pet state. User can:
-- Feed
-- Cuddle
-- Educate
-- Clean
-- Give Vitamins
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
 
-4. EventSystem
-Purpose: Contains logic for side-effects and game progression (e.g. death, evolution, illness).
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-5. UI
-Purpose: Renders pet sprite, stat bars, buttons, and status messages.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-6. Persistence
-Purpose: Save and load the game state from localStorage.
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-7. AudioVisual 
-Purpose: Adds sounds and visual feedback for immersion.
-
-## Tech Stack
-- Javascript
-- React
-- Vite
-- HTML5
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

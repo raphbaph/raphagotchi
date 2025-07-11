@@ -1,64 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamagotchi</title>
-    <link rel="stylesheet" href="src/styles/main.css">
-</head>
-<body>
-    <div id="app">
-        <header>
-            <h1>🐾 Tamagotchi</h1>
-        </header>
-        
-        <main>
-            <div id="pet-container">
-                <div id="pet-sprite">🐣</div>
-                <div id="pet-name">Baby Pet</div>
-            </div>
-            
-            <div id="stats-container">
-                <div class="stat-bar">
-                    <label>Hunger:</label>
-                    <div class="bar">
-                        <div id="hunger-bar" class="fill"></div>
-                    </div>
-                </div>
-                <div class="stat-bar">
-                    <label>Love:</label>
-                    <div class="bar">
-                        <div id="love-bar" class="fill"></div>
-                    </div>
-                </div>
-                <div class="stat-bar">
-                    <label>Cleanliness:</label>
-                    <div class="bar">
-                        <div id="cleanliness-bar" class="fill"></div>
-                    </div>
-                </div>
-                <div class="stat-bar">
-                    <label>Education:</label>
-                    <div class="bar">
-                        <div id="education-bar" class="fill"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="actions-container">
-                <button id="feed-btn">Feed</button>
-                <button id="cuddle-btn">Cuddle</button>
-                <button id="clean-btn">Clean</button>
-                <button id="educate-btn">Educate</button>
-                <button id="vitamins-btn">Vitamins</button>
-            </div>
-            
-            <div id="message-container">
-                <p id="status-message">Welcome to your new pet!</p>
-            </div>
-        </main>
-    </div>
-    
-    <script type="module" src="src/main.js"></script>
-</body>
-</html> 
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
