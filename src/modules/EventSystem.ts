@@ -1,7 +1,10 @@
 import { PetState } from './PetState';
 
 export class EventSystem {
-  constructor(private petState: PetState) {}
+  private petState: PetState;
+  constructor(petState: PetState) {
+    this.petState = petState;
+  }
 
   checkEvents(): string | null {
     if (this.petState.hunger <= 0 || this.petState.love <= 0 || this.petState.cleanliness <= 0) {

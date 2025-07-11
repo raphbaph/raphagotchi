@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
 import { PetState } from './modules/PetState';
-import { GameEngine } from './modules/GameEngine';
 import { UserActions } from './modules/UserActions';
 import { EventSystem } from './modules/EventSystem';
 import { Persistence } from './modules/Persistence';
@@ -25,8 +24,22 @@ function App() {
 
   // Only called by timer
   const handleTamaMinute = () => {
-    setTamaMinutesElapsed((m) => m + 1);
-    handleUpdate();
+    setTamaMinutesElapsed((prev) => {
+      const newMinutes = prev + 1;
+
+      // Every 60 minutes (1 Tamagotchi hour)
+      if (newMinutes % 60 === 0) {
+        petRef.current.decayHunger();
+        petRef.current.decayLove();
+      }
+      // Every 4 hours (240 minutes)
+      if (newMinutes % 240 === 0) {
+        petRef.current.decayCleanliness();
+      }
+
+      handleUpdate();
+      return newMinutes;
+    });
   };
 
   const handleAction = () => {
@@ -36,7 +49,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       handleTamaMinute();
-    }, 450); // 7.5s per hour, so 450ms per minute (7.5s / 16 = 0.46875s)
+    }, 500); // 7.5s per hour, so 125ms per minute (7.5s / 60 = 0.125s = 125ms)
     return () => clearInterval(interval);
   }, []);
 
